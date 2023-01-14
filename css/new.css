@@ -1,0 +1,13 @@
+.btnFocus {
+  background: #483d8b;
+  color: #fff;
+  cursor: pointer;
+}
+
+.cost-display-box div {
+  display: flex;
+  justify-content: space-between;
+}
+.cost-display-box div p:last-child {
+  font-weight: 800;
+}
