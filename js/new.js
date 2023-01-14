@@ -1,4 +1,70 @@
 let selected = [];
+var a = [
+  "",
+  "one ",
+  "two ",
+  "three ",
+  "four ",
+  "five ",
+  "six ",
+  "seven ",
+  "eight ",
+  "nine ",
+  "ten ",
+  "eleven ",
+  "twelve ",
+  "thirteen ",
+  "fourteen ",
+  "fifteen ",
+  "sixteen ",
+  "seventeen ",
+  "eighteen ",
+  "nineteen ",
+];
+var b = [
+  "",
+  "",
+  "twenty",
+  "thirty",
+  "forty",
+  "fifty",
+  "sixty",
+  "seventy",
+  "eighty",
+  "ninety",
+];
+
+function inWords(num) {
+  if ((num = num.toString()).length > 9) return "overflow";
+  n = ("000000000" + num)
+    .substr(-9)
+    .match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
+  if (!n) return;
+  var str = "";
+  str +=
+    n[1] != 0
+      ? (a[Number(n[1])] || b[n[1][0]] + " " + a[n[1][1]]) + "crore "
+      : "";
+  str +=
+    n[2] != 0
+      ? (a[Number(n[2])] || b[n[2][0]] + " " + a[n[2][1]]) + "lakh "
+      : "";
+  str +=
+    n[3] != 0
+      ? (a[Number(n[3])] || b[n[3][0]] + " " + a[n[3][1]]) + "thousand "
+      : "";
+  str +=
+    n[4] != 0
+      ? (a[Number(n[4])] || b[n[4][0]] + " " + a[n[4][1]]) + "hundred "
+      : "";
+  str +=
+    n[5] != 0
+      ? (str != "" ? "and " : "") +
+        (a[Number(n[5])] || b[n[5][0]] + " " + a[n[5][1]]) +
+        "only "
+      : "";
+  return str;
+}
 
 const display = () => {
   document.querySelector(".emi-details-box-receit").innerHTML = "";
@@ -14,6 +80,8 @@ const display = () => {
           "beforeend",
           `<div><p>${i[0]}</p>  <p>${i[1]}</p></div>`
         );
+      document.querySelector(".inWords").textContent = inWords(totalCost);
+      document.querySelector(".discount").textContent = (25 * totalCost) / 100;
     }
   });
 
@@ -62,7 +130,7 @@ extras(document.querySelector(".extra4"), 6);
 selectOneButton(document.querySelectorAll(".type .srv-btn"), 0);
 selectOneButton(document.querySelectorAll(".multi .srv-btn"), 1);
 selectOneButton(document.querySelectorAll(".multi2 .srv-btn"), 2);
-extras(document.querySelectorAll(".extra .srv-btn"), 3);
+// extras(document.querySelectorAll(".extra .srv-btn"), 3);
 // const extras = (data, j) => {
 //   let a = 0;
 //   data.forEach((i) => {
