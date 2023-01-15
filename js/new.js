@@ -68,20 +68,34 @@ function inWords(num) {
 
 const display = () => {
   document.querySelector(".emi-details-box-receit").innerHTML = "";
+  document.querySelector(".freeItems").innerHTML = "";
   let totalCost = 0;
+  let freeCost = 0;
+  let actualCost = 0;
   selected.forEach((i) => {
     // console.log(i);
     if (i[0] != undefined) {
       totalCost += Number(i[1]);
-
+      freeCost += Number(i[4]);
+      actualCost += Number(i[2]);
       document
         .querySelector(".emi-details-box-receit")
         .insertAdjacentHTML(
           "beforeend",
           `<div><p>${i[0]}</p>  <p>${i[1]}</p></div>`
         );
+      document.querySelector(".freeItems").insertAdjacentHTML(
+        "beforeend",
+        `
+      <p>${i[3]} worth ₹${i[4]}</p>
+      `
+      );
       document.querySelector(".inWords").textContent = inWords(totalCost);
       document.querySelector(".discount").textContent = (25 * totalCost) / 100;
+      document.querySelectorAll(".freePrice").forEach((i) => {
+        i.textContent = freeCost;
+      });
+      document.querySelector(".savings").textContent = actualCost - totalCost;
     }
   });
 
@@ -96,7 +110,13 @@ const selectOneButton = (data, j) => {
       data.forEach((i) => i.classList.remove("btnFocus"));
       i.classList.toggle("btnFocus");
       console.log(i.dataset.price);
-      selected[j] = [i.dataset.name, i.dataset.price];
+      selected[j] = [
+        i.dataset.name,
+        i.dataset.price,
+        i.dataset.marketPrice,
+        i.dataset.freeItemTite,
+        i.dataset.freeItemPrice,
+      ];
       //   console.log(i.dataset.name);
       display();
     });
