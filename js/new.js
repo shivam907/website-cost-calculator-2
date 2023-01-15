@@ -130,7 +130,13 @@ const extras = (data, j) => {
     el.preventDefault();
     data.classList.toggle("btnFocus");
     if (selected[j] == "" || selected[j] == undefined) {
-      selected[j] = [data.dataset.name, data.dataset.price];
+      selected[j] = [
+        data.dataset.name,
+        data.dataset.price,
+        data.dataset.marketPrice,
+        data.dataset.freeItemTite,
+        data.dataset.freeItemPrice,
+      ];
     } else {
       selected[j] = "";
     }
